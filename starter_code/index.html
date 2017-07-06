@@ -3,6 +3,7 @@
 <head>
 	<title>CSS HTML Forms Lab</title>
 	<link rel="stylesheet" href="style.css">
+	<link href="https://fonts.googleapis.com/css?family=Proza+Libre" rel="stylesheet">
 </head>
 <body>
 	<section id="main">
@@ -95,11 +96,25 @@
 
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 	<script type="text/javascript">
+		var name;
+		var verb;
+		var missionStatement;
+		var sentimentOne;
+		var nounOne;
+		var sentimentTwo;
+		var allSentimentTwo;
+		var nounTwo;
 
 		var main = $('#main');
 		function makeResults() {
 
-			$( "<section class='container results'><h1>A True Story:</h1>" ).appendTo(main);
+			$( "<section class='container-results'><h1>A True Story:</h1>" ).appendTo(main);
+			$( ".container-results" ).append("<p>Once upon a time there was a Developer named " + name +"</p>");
+
+			$(".container-results").append("<p>" + name + "came to General Asssembly to " + verb + " the great mountain of programming knowledge.</p>");
+			$(".container-results").append("<p>" + missionStatement + ", " + name + " shouted.</p>");
+			$(".container-results").append("<p>Though " + sentimentOne + ", " + name +  " was able to overcome all obstacles with the power of their NOUN.</p>");
+			$(".container-results").append("<p>In the end, their success can be contributed entirely to their " + allSentimentTwo + " nounTwo</p>");
 
 			// JS Native:
 			// var results = document.createElement('section');
@@ -109,8 +124,28 @@
 		};
 
 		$("form").on("submit", function(event){
+			// Stop the form from submitting
+			event.preventDefault();
+	
+			name = $("input#name").val();
+			console.log(name);
+			verb = $("select#verb-1").val();
+			console.log(verb);
+			missionStatement = $("textarea#mission").val();
+			sentimentOne = $("textarea#mission").val();
+			nounOne = $('input[name=sentiment]:checked').val();
+			console.log(nounOne);
+			//var sentimentTwo = $('input[name=checkbox]').attr('checked');
+			// var sentimentTwo = $('input[name="adjective-2"]:checked', this).val();
+			var sentimentTwo = $('input[name="adjective-2"]:checked').map(function(_, el) {
+    			return $(el).val();
+			}).get();
+			allSentimentTwo = sentimentTwo.join();
+			console.log(allSentimentTwo);
+			nounTwo = $("input#noun-2").val();
 
-		    // Stop the form from submitting
+			makeResults();
+
 
 	    	// Run the 'makeResults' function seen above
 
