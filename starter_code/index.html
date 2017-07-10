@@ -96,25 +96,24 @@
 
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 	<script type="text/javascript">
-		var name;
-		var verb;
-		var missionStatement;
-		var sentimentOne;
-		var nounOne;
-		var sentimentTwo;
-		var allSentimentTwo;
-		var nounTwo;
+		var nameToUse = "Brad Pitt";
+		var verbToUse = "boogie";
+		var missionStatementToUse = "To get enough dorks to buy our stupid products that we can afford to dress as cool as we know we are";
+		var sentimentOneToUse = "derailed";
+		var nounOneToUse = "dog poop";
+		var sentimentTwoToUse = "stupid";
+		var nounTwoToUse = "striped hyena";
 
 		var main = $('#main');
 		function makeResults() {
 
 			$( "<section class='container-results'><h1>A True Story:</h1>" ).appendTo(main);
-			$( ".container-results" ).append("<p>Once upon a time there was a Developer named " + name +"</p>");
+			$( ".container-results" ).append("<p>Once upon a time there was a Developer named " + nameToUse +"</p>");
 
-			$(".container-results").append("<p>" + name + "came to General Asssembly to " + verb + " the great mountain of programming knowledge.</p>");
-			$(".container-results").append("<p>" + missionStatement + ", " + name + " shouted.</p>");
-			$(".container-results").append("<p>Though " + sentimentOne + ", " + name +  " was able to overcome all obstacles with the power of their NOUN.</p>");
-			$(".container-results").append("<p>In the end, their success can be contributed entirely to their " + allSentimentTwo + " nounTwo</p>");
+			$(".container-results").append("<p>" + nameToUse + "came to General Asssembly to " + verbToUse + " the great mountain of programming knowledge.</p>");
+			$(".container-results").append("<p>" + missionStatementToUse + ", " + nameToUse + " shouted.</p>");
+			$(".container-results").append("<p>Though " + sentimentOneToUse + ", " + nameToUse + " was able to overcome all obstacles with the power of their " + nounOneToUse + '.'+ '</p>');
+			$(".container-results").append("<p>In the end, their success can be contributed entirely to their " +  sentimentTwoToUse + " " + nounTwoToUse + '.' + "</p>");
 
 			// JS Native:
 			// var results = document.createElement('section');
@@ -122,28 +121,74 @@
 			// results.className = 'container results';
 			// main.appendChild(results);
 		};
+		
+		function formSubmitted(name, verb, missionStatement, sentimentOne, sentimentTwo, nounOne, nounTwo, allSentimentTwo) {
+			if (name === "") {
+				alert("No Name entered");
+			} else {
+				nameToUse = name;
+			}
+
+			if (verb == "") {
+				return;
+			} else {
+				verbToUse = verb;
+			}
+			if (missionStatement === "") {
+				return;
+			} else {
+				missionStatementToUse = missionStatement;
+			}
+			if (sentimentOne == "") {
+				return;
+			} else {
+				sentimentOneToUse = sentimentOne;
+			}
+			if (sentimentTwo == "") {
+				return;
+			} else {
+				sentimentTwoToUse = sentimentTwo;
+			}
+			if (nounOne == "") {
+				return;
+			} else {
+				nounOneToUse = nounOne;
+			}
+			if (nounTwo === "") {
+				return;
+			} else {
+				nounTwoToUse = nounTwo;
+			}
+			if (allSentimentTwo === "") {
+				return;
+			} else {
+				sentimentTwoToUse = allSentimentTwo;
+			}
+
+		}
+		
 
 		$("form").on("submit", function(event){
 			// Stop the form from submitting
 			event.preventDefault();
 	
-			name = $("input#name").val();
-			console.log(name);
-			verb = $("select#verb-1").val();
-			console.log(verb);
-			missionStatement = $("textarea#mission").val();
-			sentimentOne = $("textarea#mission").val();
-			nounOne = $('input[name=sentiment]:checked').val();
-			console.log(nounOne);
-			//var sentimentTwo = $('input[name=checkbox]').attr('checked');
-			// var sentimentTwo = $('input[name="adjective-2"]:checked', this).val();
-			var sentimentTwo = $('input[name="adjective-2"]:checked').map(function(_, el) {
+			var nameEntered = $("input#name").val();
+			var verbEntered = $("select#verb-1").val();
+			var missionStatementEntered = $("textarea#mission").val();
+			var sentimentOneEntered = $('input[name=sentiment]:checked').val();
+			var sentimentTwoEntered = $('input[name="adjective-2"]:checked').map(function(_, el) {
     			return $(el).val();
 			}).get();
-			allSentimentTwo = sentimentTwo.join();
-			console.log(allSentimentTwo);
-			nounTwo = $("input#noun-2").val();
 
+			allSentimentTwo = sentimentTwoEntered.join();
+			var nounOneEntered = $('input#noun-1').val();
+
+			//var sentimentTwo = $('input[name=checkbox]').attr('checked');
+			// var sentimentTwo = $('input[name="adjective-2"]:checked', this).val();
+			
+		
+			var nounTwoEntered = $("input#noun-2").val();
+			formSubmitted(nameEntered, verbEntered, missionStatementEntered, sentimentOneEntered, allSentimentTwo, nounOneEntered, nounTwoEntered, allSentimentTwo);
 			makeResults();
 
 
